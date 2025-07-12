@@ -102,7 +102,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     updateSlideDisplay();
     setupVoiceSynthesis(); // Setup voice synthesis on load
-    startAutoplay(); // Start autoplay on load
+    
+    // Start first slide content immediately
+    setTimeout(() => {
+        triggerSceneContent(0);
+    }, 1000);
 });
 
 /**
@@ -124,39 +128,31 @@ function prevSlide() {
  * @param {number} index - The index of the slide to go to.
  * @param {boolean} [resetAutoplay=true] - Whether to reset the autoplay timer.
  */
-function goToSlide(index, resetAutoplay = true) {
+function goToSlide(index) {
     if (index < 0) {
-        index = totalSlides - 1; // Loop back to last slide
+        index = totalSlides - 1;
     } else if (index >= totalSlides) {
-        index = 0; // Loop back to first slide
+        index = 0;
     }
 
-    // If already on this slide, do nothing
-    if (index === currentSlide && slides[index].classList.contains('active')) {
-        return;
-    }
+    if (index === currentSlide) return;
 
-    // Clean up previous slide's animations/intervals and speech
+    console.log('Going to slide:', index);
+    
+    // Clean up previous slide
     cleanupSlideDemos(currentSlide);
 
     const oldSlide = slides[currentSlide];
     const newSlide = slides[index];
 
-    // Smooth transition - fade out old, fade in new
+    // Immediate transition
     oldSlide.classList.remove('active');
     oldSlide.classList.add('prev');
+    newSlide.classList.remove('prev');
+    newSlide.classList.add('active');
     
-    // Small delay to ensure clean transition
-    setTimeout(() => {
-        newSlide.classList.remove('prev');
-        newSlide.classList.add('active');
-        currentSlide = index;
-        updateSlideDisplay();
-    }, 100);
-
-    if (resetAutoplay) {
-        resetAutoplayTimer();
-    }
+    currentSlide = index;
+    updateSlideDisplay();
 }
 
 /**
@@ -172,11 +168,12 @@ function updateSlideDisplay() {
         }
     });
 
-    // Auto-start demo and voice for specific slides
-    // Add a small delay to allow slide transition animation to complete
-    setTimeout(() => {
-        triggerSceneContent(currentSlide);
-    }, 700); // Allow 0.7s for slide transition
+    // Trigger scene content immediately
+    if (isAutoplayPlaying) {
+        setTimeout(() => {
+            triggerSceneContent(currentSlide);
+        }, 500);
+    }
 }
 
 /**
@@ -313,51 +310,59 @@ function speak(text) {
     return new Promise((resolve) => {
         if (speechSynthesis) {
             speechSynthesis.cancel(); // Stop any ongoing speech
-            currentUtterance = new SpeechSynthesisUtterance(text);
-            currentUtterance.rate = 0.85; // Professional speaking pace
-            currentUtterance.pitch = 1.1; // Slightly higher pitch for female voice
-            currentUtterance.volume = 0.95; // Clear volume
-
-            // Prioritize female voices for professional presentation
-            const voices = speechSynthesis.getVoices();
-            const femaleVoice = voices.find(v =>
-                v.name.includes('Microsoft Zira') ||
-                v.name.includes('Google UK English Female') ||
-                v.name.includes('Samantha') ||
-                v.name.includes('Karen') ||
-                v.name.includes('Victoria') ||
-                v.name.includes('Fiona') ||
-                (v.lang.startsWith('en-') && v.name.toLowerCase().includes('female'))
-            ) || voices.find(v => v.lang.startsWith('en-US') || v.lang.startsWith('en-GB'));
             
-            if (femaleVoice) {
-                currentUtterance.voice = femaleVoice;
-                console.log('Using voice:', femaleVoice.name);
-            }
+            // Wait a moment for voices to load
+            setTimeout(() => {
+                currentUtterance = new SpeechSynthesisUtterance(text);
+                currentUtterance.rate = 0.9; // Clear speaking pace
+                currentUtterance.pitch = 1.0; // Normal pitch
+                currentUtterance.volume = 1.0; // Full volume
 
-            currentUtterance.onend = () => {
-                resolve(); // Resolve promise when speech finishes
-            };
-            currentUtterance.onerror = (event) => {
-                console.error('SpeechSynthesisUtterance.onerror', event);
-                resolve(); // Resolve even on error to continue flow
-            };
+                // Get available voices
+                const voices = speechSynthesis.getVoices();
+                console.log('Available voices:', voices.map(v => v.name));
+                
+                // Find best female voice
+                const femaleVoice = voices.find(v =>
+                    v.name.includes('Zira') ||
+                    v.name.includes('Female') ||
+                    v.name.includes('Samantha')
+                ) || voices.find(v => v.lang === 'en-US') || voices[0];
+                
+                if (femaleVoice) {
+                    currentUtterance.voice = femaleVoice;
+                    console.log('Using voice:', femaleVoice.name);
+                }
 
-            speechSynthesis.speak(currentUtterance);
+                currentUtterance.onend = () => {
+                    console.log('Speech ended');
+                    resolve();
+                };
+                currentUtterance.onerror = (event) => {
+                    console.error('Speech error:', event);
+                    resolve();
+                };
+
+                speechSynthesis.speak(currentUtterance);
+            }, 100);
         } else {
-            resolve(); // Resolve immediately if no speech synthesis
+            console.log('Speech synthesis not available');
+            resolve();
         }
     });
 }
 
 /* --- SCENE CONTENT ORCHESTRATOR --- */
 async function triggerSceneContent(sceneIndex) {
+    console.log('Triggering scene:', sceneIndex);
+    
     // Clear any pending timeouts from previous scene's demo
     if (currentSlideTimeout) clearTimeout(currentSlideTimeout);
+    if (autoplayInterval) clearTimeout(autoplayInterval);
 
     let narrationText = "";
-    let demoPromise = Promise.resolve(); // Default empty promise for scenes without demos
-    let minimumSceneDuration = 2000; // Minimum 2 seconds per scene after voice/demo
+    let demoPromise = Promise.resolve();
+    let sceneDuration = 8000; // 8 seconds per scene
 
     // Stop any ongoing speech
     if (speechSynthesis) {
@@ -366,40 +371,34 @@ async function triggerSceneContent(sceneIndex) {
 
     switch (sceneIndex) {
         case 0: // SCENE 1: Opening Hook
-            narrationText = "Welcome to Kaseddie AI, the future of cryptocurrency trading. I'm your intelligent AI assistant, and today I'll show you how our advanced artificial intelligence is revolutionizing the way investors trade cryptocurrencies.";
-            minimumSceneDuration = 18000; // Target 18 seconds
+            narrationText = "Welcome to Kaseddie AI, the future of cryptocurrency trading. I'm your intelligent AI assistant, and today I'll show you how our advanced artificial intelligence is revolutionizing investor trading.";
+            sceneDuration = 10000;
             break;
         case 1: // SCENE 2: Platform Overview
-            narrationText = "Kaseddie AI is a professional-grade cryptocurrency trading platform that combines advanced artificial intelligence with institutional-quality security. Our platform is designed for serious investors who demand both performance and reliability.";
-            minimumSceneDuration = 18000; // Target 18 seconds
+            narrationText = "Kaseddie AI is a professional-grade cryptocurrency trading platform that combines advanced artificial intelligence with institutional-quality security for serious investors.";
+            sceneDuration = 10000;
             break;
         case 2: // SCENE 3: AI Trading Strategies
-            // This scene has segmented narration and visual highlights
-            narrationText = "Our platform offers 10 sophisticated AI trading strategies, each designed for different market conditions.";
+            narrationText = "Our platform offers 10 sophisticated AI trading strategies. AI Prediction uses machine learning with 85% accuracy. Cross-Exchange Arbitrage achieves 95% success rates. Social Sentiment Analysis monitors market emotions. AI Scalping captures micro-movements with lightning speed.";
             demoPromise = new Promise(resolve => {
-                currentSlideTimeout = setTimeout(async () => {
-                    await speak("AI Prediction Strategy - Using machine learning models, we analyze vast amounts of market data to predict price movements with 85% accuracy.");
+                setTimeout(() => {
                     highlightStrategy('ai_prediction');
-                    await new Promise(r => setTimeout(r, 3000)); // Pause for visual
-
-                    await speak("Cross-Exchange Arbitrage - Our AI instantly identifies price differences across exchanges, executing risk-free trades with 95% success rate.");
-                    highlightStrategy('arbitrage');
-                    await new Promise(r => setTimeout(r, 3000));
-
-                    await speak("Social Sentiment Analysis - We monitor social media and news sentiment in real-time, turning market emotions into profitable trades with 81% accuracy.");
-                    highlightStrategy('sentiment_analysis');
-                    await new Promise(r => setTimeout(r, 3000));
-
-                    await speak("AI Scalping - High-frequency micro-trades capture small price movements with lightning speed, achieving 89% success rate.");
-                    highlightStrategy('scalping');
-                    await new Promise(r => setTimeout(r, 3000));
-
-                    await speak("Each strategy is backtested and continuously optimized by our AI algorithms.");
-                    clearHighlights();
-                    resolve(); // Resolve demo promise
-                }, 1000); // Start demo after initial narration
+                    setTimeout(() => {
+                        highlightStrategy('arbitrage');
+                        setTimeout(() => {
+                            highlightStrategy('sentiment_analysis');
+                            setTimeout(() => {
+                                highlightStrategy('scalping');
+                                setTimeout(() => {
+                                    clearHighlights();
+                                    resolve();
+                                }, 1000);
+                            }, 1000);
+                        }, 1000);
+                    }, 1000);
+                }, 2000);
             });
-            minimumSceneDuration = 30000; // Target 30 seconds
+            sceneDuration = 12000;
             break;
         case 3: // SCENE 4: Voice Command Trading
             narrationText = "Experience revolutionary voice-controlled trading. Simply say 'Buy 1 Ethereum' or 'Analyze Bitcoin market' and watch our AI execute your commands instantly. Trading has never been this intuitive.";
@@ -483,24 +482,20 @@ async function triggerSceneContent(sceneIndex) {
             break;
     }
 
-    // Speak the narration for the current scene
-    await speak(narrationText);
-
-    // Wait for any specific demo animations to complete
-    await demoPromise;
-
-    // Calculate the total time this scene should be displayed
-    // This is a simplified approach. For precise timing, you'd measure actual speech duration.
-    const estimatedSpeechDuration = narrationText.split(' ').length * 150; // ~150ms per word
-    const totalSceneTime = Math.max(estimatedSpeechDuration, minimumSceneDuration);
-
-    // Set the autoplay timer for the next slide
+    // Start voice narration and demo simultaneously
+    const voicePromise = speak(narrationText);
+    const demoPromiseResult = demoPromise;
+    
+    // Wait for both to complete
+    await Promise.all([voicePromise, demoPromiseResult]);
+    
+    console.log('Scene', sceneIndex, 'completed, advancing in', sceneDuration, 'ms');
+    
+    // Auto-advance to next slide
     autoplayInterval = setTimeout(() => {
-        nextSlide(false); // Auto-advance, don't reset timer again immediately
-    }, totalSceneTime);
-
-    // Reset autoplay timer if user manually navigates during a scene
-    resetAutoplayTimer();
+        console.log('Auto-advancing from scene', sceneIndex);
+        nextSlide();
+    }, sceneDuration);
 }
 
 /* --- AI ASSISTANT DEMO (Scene 1) --- */
@@ -661,42 +656,18 @@ function animateStat(id, targetValue, suffix = '', duration = 2000, isMillion = 
 /* --- SCENE 8: Getting Started (No specific JS needed beyond CSS animations) --- */
 
 /* --- AUTOPLAY CONTROLS --- */
-function startAutoplay() {
-    if (autoplayInterval) clearInterval(autoplayInterval); // Clear any existing interval
-    autoplayInterval = setTimeout(() => {
-        nextSlide(false); // Auto-advance, don't reset timer again immediately
-    }, sceneDurations[currentSlide]); // Use the dynamically set autoplayDelay
-    isAutoplayPlaying = true;
-    updateAutoplayButton();
-}
-
-function pauseAutoplay() {
-    clearInterval(autoplayInterval);
-    if (speechSynthesis) {
-        speechSynthesis.pause(); // Pause speech too
-    }
-    isAutoplayPlaying = false;
-    updateAutoplayButton();
-}
-
 function toggleAutoplay() {
     if (isAutoplayPlaying) {
-        pauseAutoplay();
+        isAutoplayPlaying = false;
+        if (autoplayInterval) clearTimeout(autoplayInterval);
+        if (speechSynthesis) speechSynthesis.pause();
         showNotification('Autoplay Paused', 'info', 1500);
     } else {
-        startAutoplay();
-        if (speechSynthesis && speechSynthesis.paused) {
-            speechSynthesis.resume(); // Resume speech if it was paused
-        }
+        isAutoplayPlaying = true;
+        if (speechSynthesis && speechSynthesis.paused) speechSynthesis.resume();
         showNotification('Autoplay Resumed', 'info', 1500);
     }
-}
-
-function resetAutoplayTimer() {
-    if (isAutoplayPlaying) {
-        pauseAutoplay(); // Pause current timer
-        startAutoplay(); // Start a new timer with the current scene's duration
-    }
+    updateAutoplayButton();
 }
 
 function updateAutoplayButton() {
