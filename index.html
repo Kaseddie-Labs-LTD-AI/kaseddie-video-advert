@@ -71,35 +71,46 @@
             align-items: center;
             padding: 40px;
             opacity: 0;
-            transform: translateX(100%);
-            transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out;
+            visibility: hidden;
+            transform: scale(0.95);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             text-align: center;
+            z-index: 1;
         }
 
             .slide.active {
                 opacity: 1;
-                transform: translateX(0);
-                position: relative; /* Keep active slide in flow */
+                visibility: visible;
+                transform: scale(1);
+                z-index: 2;
             }
 
             .slide.prev {
-                transform: translateX(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transform: scale(1.05);
             }
 
             .slide h2 {
-                font-size: 3.5rem;
-                margin-bottom: 20px;
+                font-size: 3.2rem;
+                margin-bottom: 30px;
                 background: var(--gradient-primary);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
+                font-weight: 700;
+                line-height: 1.2;
+                text-shadow: 0 2px 4px rgba(0,0,0,0.3);
             }
 
             .slide p {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
                 color: var(--text-secondary);
-                max-width: 800px;
+                max-width: 900px;
                 margin-bottom: 40px;
+                line-height: 1.6;
+                font-weight: 400;
+                text-shadow: 0 1px 2px rgba(0,0,0,0.5);
             }
 
         /* Navigation Dots */
@@ -249,9 +260,35 @@
             }
 
         @keyframes fadeInMessage {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
             }
         }
 
@@ -524,6 +561,31 @@
                 box-shadow: 0 15px 30px rgba(0, 212, 255, 0.5);
             }
 
+        /* Professional enhancements */
+        .slide h2, .slide p {
+            opacity: 0;
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .slide.active h2 {
+            animation-delay: 0.3s;
+        }
+
+        .slide.active p {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .advert-container {
@@ -537,7 +599,7 @@
             }
 
             .slide p {
-                font-size: 1rem;
+                font-size: 1.1rem;
                 margin-bottom: 20px;
             }
 
@@ -975,21 +1037,16 @@
     <div class="advert-container">
         <!-- SCENE 1: Opening Hook -->
         <div class="slide active" id="scene-0">
-            <h2>Experience the Future of Crypto Trading</h2>
-            <p>Welcome to Kaseddie AI, your intelligent trading assistant.</p>
-            <i class="fas fa-robot" style="font-size: 80px; color: var(--primary-color);"></i>
-            <div class="crypto-animation">
-                <div class="floating-crypto">₿</div>
-                <div class="floating-crypto">Ξ</div>
-                <div class="floating-crypto">₳</div>
-                <div class="floating-crypto">●</div>
-            </div>
+            <h2>Welcome to Kaseddie AI</h2>
+            <p>The Future of Intelligent Cryptocurrency Trading</p>
+            <i class="fas fa-robot" style="font-size: 80px; color: var(--primary-color); margin: 30px 0;"></i>
+            <p style="font-size: 1.1rem; color: var(--accent-color); margin-top: 20px;">Professional AI-Powered Investment Platform</p>
         </div>
 
         <!-- SCENE 2: Platform Overview -->
         <div class="slide" id="scene-1">
-            <h2>Meet Kaseddie AI</h2>
-            <p>A professional cryptocurrency trading platform powered by advanced artificial intelligence.</p>
+            <h2>Professional-Grade Trading Platform</h2>
+            <p>Institutional-quality cryptocurrency trading powered by advanced artificial intelligence and machine learning algorithms.</p>
             <div class="platform-overview-mockup">
                 <div class="mockup-header">
                     <span class="logo">Kaseddie<span style="color:var(--secondary-color);">AI</span></span>
@@ -1144,8 +1201,8 @@
 
         <!-- SCENE 9: Call to Action -->
         <div class="slide" id="scene-8">
-            <h2>Ready to Transform Your Trading?</h2>
-            <p>Experience the future of cryptocurrency trading.</p>
+            <h2>Join the Future of Intelligent Trading</h2>
+            <p>Transform your investment strategy with Kaseddie AI's professional trading platform.</p>
             <div class="contact-info-final">
                 <div><i class="fas fa-globe"></i> Website: kaseddie-crypto-ai.netlify.app</div>
                 <div><i class="fas fa-envelope"></i> Email: kaseddie@hotmail.com / kaseddie@gmail.com</div>

@@ -142,29 +142,17 @@ function goToSlide(index, resetAutoplay = true) {
     const oldSlide = slides[currentSlide];
     const newSlide = slides[index];
 
-    // Determine direction for animation
-    if (index > currentSlide || (index === 0 && currentSlide === totalSlides - 1)) { // Next or loop from last to first
-        newSlide.style.transform = 'translateX(100%)';
-        oldSlide.classList.add('prev'); // Animate old slide out to left
-    } else { // Previous or loop from first to last
-        newSlide.style.transform = 'translateX(-100%)';
-        oldSlide.classList.remove('prev'); // Animate old slide out to right (default)
-    }
-
-    // Remove active class from old slide, add to new slide
+    // Smooth transition - fade out old, fade in new
     oldSlide.classList.remove('active');
-    newSlide.classList.add('active');
-    newSlide.style.opacity = 0; // Start new slide invisible
-    newSlide.style.transform = (index > currentSlide || (index === 0 && currentSlide === totalSlides - 1)) ? 'translateX(100%)' : 'translateX(-100%)'; // Reset transform for entry
-
-    // Force reflow for transition to work
-    void newSlide.offsetWidth;
-
-    newSlide.style.opacity = 1;
-    newSlide.style.transform = 'translateX(0)';
-
-    currentSlide = index;
-    updateSlideDisplay();
+    oldSlide.classList.add('prev');
+    
+    // Small delay to ensure clean transition
+    setTimeout(() => {
+        newSlide.classList.remove('prev');
+        newSlide.classList.add('active');
+        currentSlide = index;
+        updateSlideDisplay();
+    }, 100);
 
     if (resetAutoplay) {
         resetAutoplayTimer();
@@ -326,21 +314,26 @@ function speak(text) {
         if (speechSynthesis) {
             speechSynthesis.cancel(); // Stop any ongoing speech
             currentUtterance = new SpeechSynthesisUtterance(text);
-            currentUtterance.rate = 0.95; // Slightly slower speech
-            currentUtterance.pitch = 1.0;
-            currentUtterance.volume = 0.9; // Slightly louder
+            currentUtterance.rate = 0.85; // Professional speaking pace
+            currentUtterance.pitch = 1.1; // Slightly higher pitch for female voice
+            currentUtterance.volume = 0.95; // Clear volume
 
-            // Set voice if available
+            // Prioritize female voices for professional presentation
             const voices = speechSynthesis.getVoices();
-            const preferredVoice = voices.find(v =>
-                v.name.includes('Google US English') ||
+            const femaleVoice = voices.find(v =>
                 v.name.includes('Microsoft Zira') ||
+                v.name.includes('Google UK English Female') ||
                 v.name.includes('Samantha') ||
                 v.name.includes('Karen') ||
-                v.lang.startsWith('en-US') ||
-                v.lang.startsWith('en-GB')
-            );
-            if (preferredVoice) currentUtterance.voice = preferredVoice;
+                v.name.includes('Victoria') ||
+                v.name.includes('Fiona') ||
+                (v.lang.startsWith('en-') && v.name.toLowerCase().includes('female'))
+            ) || voices.find(v => v.lang.startsWith('en-US') || v.lang.startsWith('en-GB'));
+            
+            if (femaleVoice) {
+                currentUtterance.voice = femaleVoice;
+                console.log('Using voice:', femaleVoice.name);
+            }
 
             currentUtterance.onend = () => {
                 resolve(); // Resolve promise when speech finishes
@@ -373,12 +366,12 @@ async function triggerSceneContent(sceneIndex) {
 
     switch (sceneIndex) {
         case 0: // SCENE 1: Opening Hook
-            narrationText = "Welcome to the future of cryptocurrency trading. I'm Kaseddie AI, your intelligent trading assistant, and I'm about to show you how artificial intelligence is revolutionizing crypto trading.";
-            minimumSceneDuration = 15000; // Target 15 seconds
+            narrationText = "Welcome to Kaseddie AI, the future of cryptocurrency trading. I'm your intelligent AI assistant, and today I'll show you how our advanced artificial intelligence is revolutionizing the way investors trade cryptocurrencies.";
+            minimumSceneDuration = 18000; // Target 18 seconds
             break;
         case 1: // SCENE 2: Platform Overview
-            narrationText = "Meet Kaseddie AI - a professional cryptocurrency trading platform powered by advanced artificial intelligence. We've combined cutting-edge machine learning with intuitive design to create the ultimate trading experience.";
-            minimumSceneDuration = 15000; // Target 15 seconds
+            narrationText = "Kaseddie AI is a professional-grade cryptocurrency trading platform that combines advanced artificial intelligence with institutional-quality security. Our platform is designed for serious investors who demand both performance and reliability.";
+            minimumSceneDuration = 18000; // Target 18 seconds
             break;
         case 2: // SCENE 3: AI Trading Strategies
             // This scene has segmented narration and visual highlights
@@ -481,12 +474,12 @@ async function triggerSceneContent(sceneIndex) {
             minimumSceneDuration = 15000; // Target 15 seconds
             break;
         case 8: // SCENE 9: Call to Action
-            narrationText = "Ready to transform your trading? Visit kaseddie-crypto-ai.netlify.app to experience the future of cryptocurrency trading. Contact us at kaseddie@hotmail.com or WhatsApp +256 784428821 for personalized assistance.";
-            minimumSceneDuration = 15000; // Target 15 seconds
+            narrationText = "Ready to transform your investment strategy? Join thousands of successful traders already using Kaseddie AI. Visit our platform today or contact our investment team for a personalized consultation. Your financial future starts here.";
+            minimumSceneDuration = 18000; // Target 18 seconds
             break;
         case 9: // SCENE 10: Closing
-            narrationText = "Kaseddie AI - Where artificial intelligence meets cryptocurrency trading. The future is here, and it's intelligent.";
-            minimumSceneDuration = 15000; // Target 15 seconds
+            narrationText = "Thank you for your time. Kaseddie AI - where cutting-edge artificial intelligence meets professional cryptocurrency trading. The future of intelligent investing is here. Welcome to tomorrow.";
+            minimumSceneDuration = 16000; // Target 16 seconds
             break;
     }
 
