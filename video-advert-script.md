@@ -49,48 +49,48 @@
 
 ---
 
-## **SLIDE 6: Manual Trading (60-72 seconds)**
-**Visual:** Professional trading interface with charts
+## **SLIDE 6: Mobile-Optimized Trading (60-72 seconds)**
+**Visual:** Mobile-responsive trading interface with smooth scrolling demo
 **Voice (12 seconds):**
-> "Professionals get complete control with advanced charting tools, technical indicators, and real-time market data."
+> "Perfect mobile experience with smooth scrolling, touch-optimized controls, and responsive design that fits any screen size."
 
-**Timing:** Trading interface (4s) → Charts and indicators (4s) → Real-time data (4s)
+**Timing:** Mobile interface demo (4s) → Scrolling functionality (4s) → Cross-device compatibility (4s)
 
 ---
 
-## **SLIDE 7: Security Features (72-84 seconds)**
-**Visual:** Security badges and multi-platform mockup
+## **SLIDE 7: Mobile-First Security (72-84 seconds)**
+**Visual:** Mobile security features and responsive platform demo
 **Voice (12 seconds):**
-> "Bank-grade security with 256-bit encryption and KYC compliance. Trade 50+ cryptocurrencies across all platforms."
+> "Bank-grade security optimized for mobile. Touch-friendly interface, smooth scrolling, perfect fit on any phone screen size."
 
-**Timing:** Security badges (6s) → Multi-platform view (6s)
+**Timing:** Mobile security demo (6s) → Responsive design showcase (6s)
 
 ---
 
-## **SLIDE 8: Performance Stats (84-96 seconds)**
-**Visual:** Animated performance dashboard
+## **SLIDE 8: Performance Projections (84-96 seconds)**
+**Visual:** Animated projection dashboard with "Target" labels
 **Voice (12 seconds):**
-> "Proven results: Up to 95% success rates, over 1.2 million in trading volume, thousands of satisfied traders worldwide."
+> "Our projections: Target 95% success rates, expected 10K+ users in first year, designed for mobile-first trading experience."
 
-**Timing:** Success rate chart (4s) → Volume counter (4s) → User testimonials (4s)
+**Timing:** Target success chart (4s) → Expected user growth (4s) → Mobile responsiveness demo (4s)
 
 ---
 
 ## **SLIDE 9: Getting Started (96-108 seconds)**
-**Visual:** 4-step process animation
+**Visual:** 4-step process animation with mobile-friendly interface
 **Voice (12 seconds):**
-> "Getting started is simple: Sign up, complete KYC, choose your AI strategy, and start trading. Begin your journey today."
+> "Be among the first: Sign up for early access, complete KYC, choose your AI strategy, start trading on any device."
 
-**Timing:** Step 1-2 (6s) → Step 3-4 (6s)
+**Timing:** Mobile signup demo (6s) → Cross-platform compatibility (6s)
 
 ---
 
 ## **SLIDE 10: Call to Action (108-120 seconds)**
-**Visual:** Website URL and contact details
+**Visual:** Mobile-responsive website demo and contact details
 **Voice (12 seconds):**
-> "Visit kaseddie-crypto-ai.netlify.app or contact kaseddie@hotmail.com. WhatsApp +256 784428821. Start trading smarter today."
+> "Join the future at kaseddie-crypto-ai.netlify.app - fully mobile optimized. Contact kaseddie@hotmail.com or WhatsApp +256 784428821."
 
-**Timing:** Website URL (4s) → Email display (4s) → WhatsApp number (4s)
+**Timing:** Mobile website demo (4s) → Email display (4s) → WhatsApp contact (4s)
 
 ---
 
@@ -137,23 +137,24 @@
 ---
 
 ## 🎨 **Visual Elements:**
-- **Live website demonstration**
-- **Strategy performance charts**
+- **Mobile-responsive website demo**
+- **Smooth scrolling demonstration**
+- **Touch-optimized interface**
+- **Cross-device compatibility**
+- **Strategy performance projections**
 - **Voice command interface**
-- **Security certifications**
-- **Multi-platform mockups**
-- **Real-time trading data**
+- **Mobile security features**
 - **Professional animations**
-- **Clear call-to-action screens**
+- **Clear mobile call-to-action**
 
 ---
 
-## 📊 **Success Metrics to Highlight:**
-- **85% Average Success Rate**
-- **$1.2M+ Trading Volume**
+## 📊 **Target Metrics to Highlight:**
+- **95% Target Success Rate**
+- **10K+ Expected Users (Year 1)**
 - **50+ Supported Cryptocurrencies**
 - **10 AI Trading Strategies**
-- **95% Arbitrage Success Rate**
+- **Mobile-First Design**
 - **24/7 Platform Availability**
 
 This script creates a compelling narrative that showcases your platform's intelligence, professionalism, and results-driven approach while maintaining credibility with real performance data.
