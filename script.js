@@ -29,8 +29,8 @@ class KaseddiePresentation {
                 duration: 8000
             },
             {
-                title: "Manual Trading Interface",
-                narration: "For experienced traders, our manual trading interface provides complete control with advanced charting tools, technical indicators, and real-time market data.",
+                title: "Mobile-Optimized Platform",
+                narration: "Perfect mobile experience with smooth scrolling, touch-optimized controls, and responsive design that fits any screen size.",
                 duration: 8000
             },
             {
@@ -39,8 +39,8 @@ class KaseddiePresentation {
                 duration: 8000
             },
             {
-                title: "Performance Metrics",
-                narration: "Our results speak for themselves: Up to 95% success rates, over 1.2 million dollars in trading volume processed, and thousands of satisfied traders worldwide.",
+                title: "Performance Projections",
+                narration: "Our projections: Target 95% success rates, expected 10K+ users in first year, designed for mobile-first trading experience with perfect scrolling.",
                 duration: 8000
             },
             {
@@ -50,7 +50,7 @@ class KaseddiePresentation {
             },
             {
                 title: "Investment Opportunity",
-                narration: "Join thousands of successful traders already using Kaseddie AI. Visit our platform today or contact our investment team for a personalized consultation.",
+                narration: "Be among the first investors in Kaseddie AI's revolutionary platform. Join our pre-launch program and help us build the future of AI-powered cryptocurrency trading.",
                 duration: 8000
             },
             {
@@ -298,9 +298,9 @@ class KaseddiePresentation {
     }
     
     async animateStats() {
-        await this.animateStat('stat-success', 95, '%');
-        await this.animateStat('stat-volume', 1.2, 'M', true);
-        await this.animateStat('stat-traders', 5000, '+');
+        await this.animateStat('stat-success', 95, '% Target');
+        await this.animateStat('stat-volume', 10, 'M+ Projected', true);
+        await this.animateStat('stat-traders', 1000, '+ Goal');
     }
     
     animateStat(id, targetValue, suffix = '', isMillion = false) {
@@ -350,22 +350,22 @@ KASEDDIE AI - INVESTMENT PITCH DECK
 ==================================
 
 EXECUTIVE SUMMARY
-- Market: $2.8T cryptocurrency market
+- Market: $2.8T cryptocurrency market opportunity
 - Problem: 95% of traders lose money due to emotional decisions
-- Solution: AI-powered trading platform with up to 95% success rate
-- Traction: 10,000+ users, $1.2M+ trading volume
-- Investment: Seeking $2.5M Series A funding
+- Solution: AI-powered trading platform targeting up to 95% success rate
+- Stage: Pre-launch development phase
+- Investment: Seeking $2.5M Seed/Series A funding
 
 MARKET OPPORTUNITY
 - Total Addressable Market: $2.8T
 - Serviceable Addressable Market: $280B
 - Target Market: Professional traders and institutions
 
-PRODUCT FEATURES
-- 10 AI trading algorithms with proven track records
-- Voice command trading interface
+PRODUCT FEATURES (In Development)
+- 10 AI trading algorithms in testing phase
+- Revolutionary voice command trading interface
 - Multi-platform support (Web, Mobile, Desktop)
-- Institutional-grade security and compliance
+- Institutional-grade security and compliance framework
 
 BUSINESS MODEL
 - Trading fees: 0.1% per transaction
@@ -373,11 +373,11 @@ BUSINESS MODEL
 - Enterprise solutions: Custom pricing
 - API licensing for institutional clients
 
-FINANCIAL PROJECTIONS
-Year 1: $500K revenue, 50K users
-Year 2: $2.5M revenue, 250K users  
-Year 3: $10M revenue, 1M users
-Year 4: $25M revenue, 2.5M users
+FINANCIAL PROJECTIONS (Post-Launch)
+Year 1: $500K projected revenue, 10K target users
+Year 2: $2.5M projected revenue, 50K target users  
+Year 3: $10M projected revenue, 250K target users
+Year 4: $25M projected revenue, 1M target users
 
 INVESTMENT TERMS
 - Amount: $2.5M Series A
