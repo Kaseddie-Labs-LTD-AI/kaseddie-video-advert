@@ -270,51 +270,51 @@ class KaseddiePresentation {
     
     // Animation helper functions
     highlightStrategy(strategyKey) {
-        document.querySelectorAll('.strategy-card-small').forEach(card => {
+        document.querySelectorAll('.strategy-card').forEach(card => {
             card.classList.remove('highlight');
-            if (card.dataset.strategyKey === strategyKey) {
+            if (card.dataset.strategy === strategyKey) {
                 card.classList.add('highlight');
             }
         });
     }
     
     async showVoiceDemo() {
-        const commandText = document.getElementById('voice-command-text');
-        const commandResponse = document.getElementById('voice-command-response');
+        const commandText = document.getElementById('voice-command');
+        const commandResponse = document.getElementById('voice-response');
         
         if (commandText && commandResponse) {
-            commandText.textContent = "User: 'Buy 1 Ethereum'";
             commandText.style.opacity = 1;
             
             setTimeout(() => {
-                commandResponse.textContent = "AI: 'Executing buy order for 1 Ethereum'";
                 commandResponse.style.opacity = 1;
             }, 2000);
         }
     }
     
     animateSecurityFeatures() {
-        document.querySelectorAll('.security-feature-item').forEach((item, index) => {
+        document.querySelectorAll('.security-item').forEach((item, index) => {
             setTimeout(() => {
-                item.style.opacity = 1;
-                item.style.transform = 'translateY(0)';
-            }, index * 200);
+                item.classList.add('animate');
+            }, index * 300);
         });
     }
     
     async animateStats() {
-        await this.animateStat('stat-success', 95, '% Target');
-        await this.animateStat('stat-volume', 10, 'M+ Projected', true);
-        await this.animateStat('stat-traders', 1000, '+ Goal');
+        await this.animateStat('stat-success', 95, '%');
+        await this.animateStat('stat-users', 10, 'K');
+        await this.animateStat('stat-funding', 250, 'K');
     }
     
-    animateStat(id, targetValue, suffix = '', isMillion = false) {
+    animateStat(id, targetValue, suffix = '') {
         return new Promise(resolve => {
             const element = document.getElementById(id);
-            if (!element) { resolve(); return; }
+            const parentItem = element?.closest('.stat-item');
+            if (!element || !parentItem) { resolve(); return; }
+            
+            parentItem.classList.add('animate');
             
             let currentValue = 0;
-            const increment = targetValue / 50;
+            const increment = targetValue / 30;
             
             const timer = setInterval(() => {
                 currentValue += increment;
@@ -324,8 +324,8 @@ class KaseddiePresentation {
                     resolve();
                 }
                 
-                if (isMillion) {
-                    element.textContent = `$${currentValue.toFixed(1)}${suffix}`;
+                if (id === 'stat-funding') {
+                    element.textContent = `$${Math.round(currentValue)}${suffix}`;
                 } else {
                     element.textContent = `${Math.round(currentValue)}${suffix}`;
                 }
@@ -336,9 +336,8 @@ class KaseddiePresentation {
     animateSteps() {
         document.querySelectorAll('.step-item').forEach((item, index) => {
             setTimeout(() => {
-                item.style.opacity = 1;
-                item.style.transform = 'translateX(0)';
-            }, index * 500);
+                item.classList.add('animate');
+            }, index * 400);
         });
     }
 }

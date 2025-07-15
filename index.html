@@ -252,6 +252,172 @@
             transform: translateY(-2px);
         }
 
+        /* Visual Elements Styles */
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .strategy-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            opacity: 0.5;
+        }
+
+        .strategy-card.highlight {
+            opacity: 1;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .strategy-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+
+        .strategy-card p {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .voice-demo {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .voice-command {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin: 10px 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .voice-response {
+            font-size: 1rem;
+            color: var(--accent-color);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .security-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .security-item.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .security-item i {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .security-item span {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .stats-display {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .stat-item {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .stat-item.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .step-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.5s ease;
+        }
+
+        .step-item.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .step-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .step-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .video-container {
@@ -357,6 +523,87 @@
                 width: 8px;
                 height: 8px;
             }
+
+            /* Mobile Visual Elements */
+            .strategy-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                max-width: 280px;
+            }
+
+            .strategy-card {
+                padding: 10px;
+            }
+
+            .strategy-card h4 {
+                font-size: 0.9rem;
+            }
+
+            .strategy-card p {
+                font-size: 0.8rem;
+            }
+
+            .voice-demo {
+                padding: 15px;
+            }
+
+            .voice-command {
+                font-size: 1rem;
+            }
+
+            .voice-response {
+                font-size: 0.9rem;
+            }
+
+            .security-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                max-width: 250px;
+            }
+
+            .security-item {
+                padding: 10px;
+            }
+
+            .security-item i {
+                font-size: 20px;
+            }
+
+            .security-item span {
+                font-size: 0.8rem;
+            }
+
+            .stats-display {
+                flex-direction: column;
+                gap: 15px;
+                max-width: 200px;
+            }
+
+            .stat-value {
+                font-size: 1.5rem;
+            }
+
+            .stat-label {
+                font-size: 0.7rem;
+            }
+
+            .steps-container {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                max-width: 250px;
+            }
+
+            .step-item {
+                padding: 10px;
+            }
+
+            .step-number {
+                font-size: 1.2rem;
+            }
+
+            .step-text {
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
@@ -379,12 +626,35 @@
         <div class="slide" id="scene-2">
             <h2>AI Trading Strategies</h2>
             <p>10 sophisticated AI algorithms with up to 95% success rates</p>
+            <div class="strategy-grid">
+                <div class="strategy-card" data-strategy="ai_prediction">
+                    <h4>AI Prediction</h4>
+                    <p>85% Success Rate</p>
+                </div>
+                <div class="strategy-card" data-strategy="arbitrage">
+                    <h4>Arbitrage</h4>
+                    <p>95% Success Rate</p>
+                </div>
+                <div class="strategy-card" data-strategy="sentiment_analysis">
+                    <h4>Sentiment Analysis</h4>
+                    <p>81% Success Rate</p>
+                </div>
+                <div class="strategy-card" data-strategy="scalping">
+                    <h4>AI Scalping</h4>
+                    <p>89% Success Rate</p>
+                </div>
+            </div>
         </div>
 
         <!-- Slide 3: Voice Commands -->
         <div class="slide" id="scene-3">
             <h2>Voice Command Trading</h2>
             <p>Revolutionary voice-controlled trading interface</p>
+            <div class="voice-demo">
+                <i class="fas fa-microphone" style="font-size: 40px; color: var(--primary-color); margin-bottom: 15px;"></i>
+                <div class="voice-command" id="voice-command">"Buy 1 Ethereum"</div>
+                <div class="voice-response" id="voice-response">AI: "Executing buy order..."</div>
+            </div>
         </div>
 
         <!-- Slide 4: Mobile Optimized -->
@@ -397,18 +667,68 @@
         <div class="slide" id="scene-5">
             <h2>Security & Features</h2>
             <p>Bank-grade 256-bit encryption with complete KYC compliance</p>
+            <div class="security-grid">
+                <div class="security-item">
+                    <i class="fas fa-lock"></i>
+                    <span>256-bit Encryption</span>
+                </div>
+                <div class="security-item">
+                    <i class="fas fa-user-shield"></i>
+                    <span>KYC Compliance</span>
+                </div>
+                <div class="security-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Multi-Factor Auth</span>
+                </div>
+                <div class="security-item">
+                    <i class="fas fa-coins"></i>
+                    <span>50+ Cryptos</span>
+                </div>
+            </div>
         </div>
 
         <!-- Slide 6: Performance -->
         <div class="slide" id="scene-6">
             <h2>Performance Projections</h2>
             <p>Target 95% success rates with mobile-first trading experience</p>
+            <div class="stats-display">
+                <div class="stat-item">
+                    <div class="stat-value" id="stat-success">0%</div>
+                    <div class="stat-label">Target Success Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="stat-users">0K</div>
+                    <div class="stat-label">Expected Users</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="stat-funding">$0K</div>
+                    <div class="stat-label">Funding Goal</div>
+                </div>
+            </div>
         </div>
 
         <!-- Slide 7: Getting Started -->
         <div class="slide" id="scene-7">
             <h2>Getting Started</h2>
             <p>Simple 4-step process: Sign up, KYC, choose strategy, start trading</p>
+            <div class="steps-container">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-text">Sign Up</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-text">Complete KYC</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-text">Choose Strategy</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <div class="step-text">Start Trading</div>
+                </div>
+            </div>
         </div>
 
         <!-- Slide 8: Investor Dashboard -->
