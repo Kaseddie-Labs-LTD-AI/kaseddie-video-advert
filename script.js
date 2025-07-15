@@ -2,7 +2,7 @@
 class KaseddiePresentation {
     constructor() {
         this.currentSlide = 0;
-        this.totalSlides = 10;
+        this.totalSlides = 11;
         this.isPlaying = true;
         this.speechSynthesis = window.speechSynthesis;
         this.currentUtterance = null;
@@ -49,8 +49,13 @@ class KaseddiePresentation {
                 duration: 8000
             },
             {
+                title: "Investor Dashboard",
+                narration: "Our investor dashboard provides transparent access to development progress, financial projections, and investment opportunities. See real-time updates on our journey to 10K+ users.",
+                duration: 8000
+            },
+            {
                 title: "Investment Opportunity",
-                narration: "Be among the first investors in Kaseddie AI's revolutionary platform. Join our pre-launch program and help us build the future of AI-powered cryptocurrency trading.",
+                narration: "We're an honest new project seeking early investors. Starting from $1,000 seed investments up to $50,000 strategic partnerships. Total funding goal: $250,000 to launch our MVP.",
                 duration: 8000
             },
             {
